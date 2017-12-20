@@ -149,6 +149,9 @@ class App extends Component {
       questions="";
     }else if(this.state.name && this.state.submitted === true){
       //submitted state
+      user=<span>
+        <h3>Thank you {this.state.name} for your time </h3>
+      </span>
 
     }
     return (
