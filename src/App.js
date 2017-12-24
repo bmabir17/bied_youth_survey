@@ -14,12 +14,15 @@ var config = {
   storageBucket: "bied-survey.appspot.com",
   messagingSenderId: "418768995032"
 };
+var surveyId=0;
 firebase.initializeApp(config);
 class App extends Component {
   constructor(props){
+    surveyId+=1;
     super(props);
     this.state={
       id:uuid.v1(),
+      sId:surveyId,
       name:'',
       email:'',
       org:'',
@@ -68,10 +71,10 @@ class App extends Component {
     var user;
     var questions;
     if(this.state.name && this.state.submitted === false){
-      //2nd state
+      //2nd state // section2
       user=<span>
         <h2>Hi {this.state.name}</h2>
-        <h3>Please answer the following questions</h3>
+        <h3>Please answer the following questions for</h3>
       </span>
       questions=<Section2
                   answers={this.state.answers}
@@ -79,7 +82,7 @@ class App extends Component {
                 />
 
     }else if(!this.state.name && this.state.submitted === false){
-      //1st state,new user
+      //1st state,new user //section 1
       user= <span>
         <Section1 name={this.state.name}
           email={this.state.email}

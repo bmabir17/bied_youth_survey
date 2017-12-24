@@ -32,6 +32,8 @@ class Section1 extends Component {
     return(
 
       <span>
+        <h3 className="text-center">Education Watch 2017</h3>
+        <h3 className="text-center">মূল্যবোধ জরিপ (তরুণদের জন্য)</h3>
         <form onSubmit={this.handleQuestionSubmit.bind(this)}>
           <label>Q1) স্বচ্ছন্দ জীবন ও যথেষ্ট অর্থ উপার্জন জীবনের প্রধান উদ্দেশ্য; এটাই আমাদের চাহিদা পূরণ এবং সুখী জীবনের জন্য প্রয়োজন।</label>
           <br/>

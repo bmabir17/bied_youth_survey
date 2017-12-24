@@ -31,7 +31,7 @@ class Section1 extends Component {
   render(){
     return(
       <span>
-        <h2>Youth Surveys</h2>
+        
         <h3>
           To get started, Register as survey respondant
         </h3>
