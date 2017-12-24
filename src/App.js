@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import Section1 from './components/Section1/Section1';
 import Section2 from './components/Section2/Section2';
+import Header from './components/Header/Header';
 var uuid = require('uuid');
 // Initialize Firebase
 var firebase=require('firebase');
@@ -14,15 +16,15 @@ var config = {
   storageBucket: "bied-survey.appspot.com",
   messagingSenderId: "418768995032"
 };
-var surveyId=0;
+//var surveyId=0;
 firebase.initializeApp(config);
 class App extends Component {
   constructor(props){
-    surveyId+=1;
+    //surveyId+=1;
     super(props);
     this.state={
       id:uuid.v1(),
-      sId:surveyId,
+      //sId:surveyId,
       name:'',
       email:'',
       org:'',
@@ -73,8 +75,8 @@ class App extends Component {
     if(this.state.name && this.state.submitted === false){
       //2nd state // section2
       user=<span>
-        <h2>Hi {this.state.name}</h2>
-        <h3>Please answer the following questions for</h3>
+        <h2>Hi {this.state.name},Please answer the following questions for</h2>
+
       </span>
       questions=<Section2
                   answers={this.state.answers}
@@ -100,6 +102,7 @@ class App extends Component {
     }
     return (
       <div className="App ">
+        <Header />
         <header className="App-header text-center">
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to BIED Surveys</h1>

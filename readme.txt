@@ -17,3 +17,11 @@ git add .
 git commmit -m "v2"
 git push heroku master
 heroku open
+
+
+####### TO DO
+0. Crate the structure of json question and response storing
+1. Show Survey question from json database (follow section 3 in udemy)
+2. Admin Login (follow section 9 in udemy)
+3. export json database to excel
+4. Populate json database with surveys and questions
