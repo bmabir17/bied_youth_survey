@@ -111,23 +111,19 @@ class App extends Component {
           <h1 className="App-title">Welcome to BIED Surveys</h1>
         </header>
         <Switch>
-
-        <Route exact path='/' render={()=>(
-          <span>
-            <div className="text-center">
-                {user}
-            </div>
-            <div className="questionContainer">
-                {questions}
-            </div>
-          </span>
-        )}/>
-        <Route exact path='/Dashboard' render={()=>(
-          <Dashboard/>
-        )}/>
-        
-
-
+          <Route exact path='/' render={()=>(
+            <span>
+              <div className="text-center">
+                  {user}
+              </div>
+              <div className="questionContainer">
+                  {questions}
+              </div>
+            </span>
+          )}/>
+          <Route exact path='/Dashboard' render={()=>(
+            <Dashboard/>
+          )}/>
         </Switch>
 
       </div>
