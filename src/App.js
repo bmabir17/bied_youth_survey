@@ -112,10 +112,20 @@ class App extends Component {
         </header>
         <Switch>
 
+        <Route exact path='/' render={()=>(
+          <span>
+            <div className="text-center">
+                {user}
+            </div>
+            <div className="questionContainer">
+                {questions}
+            </div>
+          </span>
+        )}/>
         <Route exact path='/Dashboard' render={()=>(
           <Dashboard/>
         )}/>
-
+        
 
 
         </Switch>
