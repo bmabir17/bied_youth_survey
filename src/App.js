@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import {Switch,Route} from 'react-router-dom';
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 import Section1 from './components/Section1/Section1';
 import Section2 from './components/Section2/Section2';
 import Header from './components/Header/Header';
+import Dashboard from './components/Admin/Dashboard/Dashboard';
 var uuid = require('uuid');
 // Initialize Firebase
 var firebase=require('firebase');
@@ -100,6 +102,7 @@ class App extends Component {
       </span>
 
     }
+
     return (
       <div className="App ">
         <Header />
@@ -107,13 +110,15 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to BIED Surveys</h1>
         </header>
-        <div className="text-center">
-            {user}
+        <Switch>
 
-        </div>
-        <div className="questionContainer">
-            {questions}
-        </div>
+        <Route exact path='/Dashboard' render={()=>(
+          <Dashboard/>
+        )}/>
+
+
+
+        </Switch>
 
       </div>
 
