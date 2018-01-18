@@ -1,12 +1,62 @@
 import React,{Component} from 'react';
+import firebase from './../../firebase';
 
-class Section1 extends Component {
+var questionRef=firebase.database().ref('Questions');
+var sectionRef=firebase.database().ref('Sections');
+var survey_name;
+
+class Section2 extends Component {
   constructor(props) {
     super(props);
+    survey_name=props.survey_name;
     this.state={
+      
       answers:props.answers,
+      questions:[],
+      sectionChoice:[],
+
     }
     this.handleQuestionChange=this.handleQuestionChange.bind(this)
+  }
+  getSectionChoice(){
+    sectionRef.once("value").then(function(snapshot){
+      var childVal=snapshot.val();
+      return childVal[survey_name];
+    }).then((response)=>{
+      //console.log(response);
+      this.setState({sectionChoice:response.section3},()=>{
+        //console.log(this.state);
+        //console.log("section choice saved in state");
+      });
+    }).catch((error)=>{console.log(error)});
+  }
+  getQuestionData(){
+    
+    questionRef.once("value").then(function(snapshot){
+      
+      var childVal=snapshot.val();
+      var questions=childVal[survey_name];
+      //console.log(questions);
+      return questions;
+      
+    }).then((response)=>{
+            //console.log(response);
+            //console.log(JSON.stringify(response.occupations));
+            //AsyncStorage.setItem('product',JSON.stringify(response.banks));
+            this.setState({questions:response},()=>{
+                //console.log('question array saved in state');
+                //console.log(this.state);
+            });
+        }).catch((error)=>{console.log(error)});
+
+      
+
+  }
+  componentDidMount(){
+    //console.log("components mounted");
+    this.getQuestionData();
+    this.getSectionChoice();
+    //console.log(this.state);
   }
 
   handleQuestionSubmit(event){
@@ -14,62 +64,61 @@ class Section1 extends Component {
     var answers=this.state.answers;
     this.props.onSubmit(answers);
 
-
   }
-  handleQuestionChange(event){
+  handleQuestionChange(event,quesName){
     console.log(event.target.value);
-    var answers=this.state.answers
+    console.log(quesName);
+    var answers=this.state.answers;
+    answers[quesName]=event.target.value;
+    /*
     if(event.target.name ==="q1"){
       answers.q1=event.target.value;
     }else if (event.target.name ==="q2") {
       answers.q2=event.target.value;
     }
+    */
     this.setState({answers:answers},function () {
       console.log(this.state);
     });
   }
   render(){
+
+
+    var questionArray=this.state.questions;
+    var choiceArray=this.state.sectionChoice;
+    //console.log(choiceArray);
     return(
 
       <span>
         <h3 className="text-center">Education Watch 2017</h3>
         <h3 className="text-center">মূল্যবোধ জরিপ (তরুণদের জন্য)</h3>
-        <form onSubmit={this.handleQuestionSubmit.bind(this)}>
-          <label>Q1) স্বচ্ছন্দ জীবন ও যথেষ্ট অর্থ উপার্জন জীবনের প্রধান উদ্দেশ্য; এটাই আমাদের চাহিদা পূরণ এবং সুখী জীবনের জন্য প্রয়োজন।</label>
-          <br/>
-          <input type="radio" name="q1" value="q1_1" onChange={this.handleQuestionChange} />
-            আমি এই বিষয়টি নিয়ে ভাবিনি
-          <br/>
-          <input type="radio" name="q1" value="q1_2" onChange={this.handleQuestionChange}/>
-            আমি এই বক্তব্য এর সাথে সম্পূর্ণ এক মত
-          <br/>
-          <input type="radio" name="q1" value="q1_3" onChange={this.handleQuestionChange}/>
-          আমি এই বক্তব্য এর সাথে আংশিকভাবে একমত
-          <br/>
-          <input type="radio" name="q1" value="q1_4"onChange={this.handleQuestionChange}/>
-          আমি এই বক্তব্য মোটেই সমর্থন করি না
-          <br/>
-          <input type="radio" name="q1" value="q1_5" onChange={this.handleQuestionChange}/>
-          এ সম্বন্ধে আমার কোন মতামত নেই
-          <br/>
+        <form className="questionContainer" onSubmit={this.handleQuestionSubmit.bind(this)}>
+          {questionArray.map((ques, i) => {                    
+                return (
+                  <span key={i}>
+                    <label >Q{i}) {ques.text}</label>
+                    <br/>
+                    {choiceArray.map((choice, c) => {
+                          return (
+                            <span key={c}>
+                            <input type={ques.button} name={ques.question_name} value={ques.question_name+"_"+c} onChange={(e) => this.handleQuestionChange(e,ques.question_name)} />
+                            {choice}  
+                            <br/>
+                            </span>
+                          )
+                        },ques
+                      )
+                    }
+                    <br/>
+                  </span>
+                )
+              }
+            )
+          }
 
-          <label>Q2) পরীক্ষায় ভাল ফল পাওয়ার জন্য কোনো কোনো ক্ষেত্রে অসদোপায় অবলম্বন করার প্রয়োজন হয়।</label>
-          <br/>
-          <input type="radio" name="q2" value="q2_1" onChange={this.handleQuestionChange} />
-            আমি এই বিষয়টি নিয়ে ভাবিনি
-          <br/>
-          <input type="radio" name="q2" value="q2_2" onChange={this.handleQuestionChange}/>
-            আমি এই বক্তব্য এর সাথে সম্পূর্ণ এক মত
-          <br/>
-          <input type="radio" name="q2" value="q2_3"onChange={this.handleQuestionChange}/>
-          আমি এই বক্তব্য এর সাথে আংশিকভাবে একমত
-          <br/>
-          <input type="radio" name="q2" value="q2_4" onChange={this.handleQuestionChange}/>
-          আমি এই বক্তব্য মোটেই সমর্থন করি না
-          <br/>
-          <input type="radio" name="q2" value="q2_5" onChange={this.handleQuestionChange}/>
-          এ সম্বন্ধে আমার কোন মতামত নেই
-          <br/>
+          
+
+          
           <input type="submit" value="Submit"/>
         </form>
       </span>
@@ -78,4 +127,4 @@ class Section1 extends Component {
   }
 }
 
-export default Section1;
+export default Section2;

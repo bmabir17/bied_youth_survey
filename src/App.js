@@ -7,19 +7,10 @@ import Section1 from './components/Section1/Section1';
 import Section2 from './components/Section2/Section2';
 import Header from './components/Header/Header';
 import Dashboard from './components/Admin/Dashboard/Dashboard';
+import firebase from './firebase';
 var uuid = require('uuid');
-// Initialize Firebase
-var firebase=require('firebase');
-var config = {
-  apiKey: "AIzaSyCRLPV54LXeJ3drZl4HMin6Bcl5kPIXxQM",
-  authDomain: "bied-survey.firebaseapp.com",
-  databaseURL: "https://bied-survey.firebaseio.com",
-  projectId: "bied-survey",
-  storageBucket: "bied-survey.appspot.com",
-  messagingSenderId: "418768995032"
-};
+
 //var surveyId=0;
-firebase.initializeApp(config);
 class App extends Component {
   constructor(props){
     //surveyId+=1;
@@ -31,8 +22,7 @@ class App extends Component {
       email:'',
       org:'',
       answers:{
-        q1:'',
-        q2:''
+        
       },
       date:Date().toString(),
       submitted: false
@@ -42,7 +32,7 @@ class App extends Component {
 
   handleSurveySubmit(){
 
-    firebase.database().ref('youth_surveys/'+this.state.id).set({
+    firebase.database().ref('Response/youth_surveys/'+this.state.id).set({
       name: this.state.name,
       answers:this.state.answers,
       date:this.state.date
@@ -80,11 +70,24 @@ class App extends Component {
         <h2>Hi {this.state.name},Please answer the following questions for</h2>
 
       </span>
-      questions=<Section2
-                  answers={this.state.answers}
-                  onSubmit={this.section2Submit.bind(this)}
-                />
 
+        questions=<Section2
+                    answers={this.state.answers}
+                    survey_name="youth_surveys"
+                    onSubmit={this.section2Submit.bind(this)}
+                  />
+      /*
+
+      questions=<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfZaTpGmQKmyJLLs-9kmZ6lgljnKRd8N__h0wRfDmXwFK3skA/viewform?embedded=true#start=embed"
+                  width="1360"
+                  height="500"
+                  frameborder="0"
+                  marginheight="0"
+                  marginwidth="0"
+                >
+                  Loading...
+                </iframe>
+                */
     }else if(!this.state.name && this.state.submitted === false){
       //1st state,new user //section 1
       user= <span>
@@ -110,6 +113,8 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to BIED Surveys</h1>
         </header>
+
+      {/*Routing information */}
         <Switch>
           <Route exact path='/' render={()=>(
             <span>
