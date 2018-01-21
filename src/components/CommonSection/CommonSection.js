@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 
-class Section1 extends Component {
+class CommonSection extends Component {
   constructor(props) {
     super(props);
     this.state={
@@ -59,4 +59,4 @@ class Section1 extends Component {
   }
 }
 
-export default Section1;
+export default CommonSection;

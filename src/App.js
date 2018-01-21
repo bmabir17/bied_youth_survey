@@ -3,12 +3,15 @@ import {Switch,Route} from 'react-router-dom';
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import Section1 from './components/Section1/Section1';
+import CommonSection from './components/CommonSection/CommonSection';
 import Section2 from './components/Section2/Section2';
 import Header from './components/Header/Header';
 import Dashboard from './components/Admin/Dashboard/Dashboard';
+import AddQuestion from './components/Admin/Dashboard/AddQuestion';
 import firebase from './firebase';
+
 var uuid = require('uuid');
+
 
 //var surveyId=0;
 class App extends Component {
@@ -61,6 +64,8 @@ class App extends Component {
     this.handleSurveySubmit();
   }
 
+
+
   render() {
     var user;
     var questions;
@@ -76,22 +81,10 @@ class App extends Component {
                     survey_name="youth_surveys"
                     onSubmit={this.section2Submit.bind(this)}
                   />
-      /*
-
-      questions=<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSfZaTpGmQKmyJLLs-9kmZ6lgljnKRd8N__h0wRfDmXwFK3skA/viewform?embedded=true#start=embed"
-                  width="1360"
-                  height="500"
-                  frameborder="0"
-                  marginheight="0"
-                  marginwidth="0"
-                >
-                  Loading...
-                </iframe>
-                */
     }else if(!this.state.name && this.state.submitted === false){
-      //1st state,new user //section 1
+      //1st state,new user //CommonSection
       user= <span>
-        <Section1 name={this.state.name}
+        <CommonSection name={this.state.name}
           email={this.state.email}
           org={this.state.org}
           onChange={this.nameChange.bind(this)}
@@ -128,6 +121,9 @@ class App extends Component {
           )}/>
           <Route exact path='/Dashboard' render={()=>(
             <Dashboard/>
+          )}/>
+          <Route exact path='/add_questions' render={()=>(
+            <AddQuestion survey_name="youth_surveys"/>
           )}/>
         </Switch>
 
