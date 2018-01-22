@@ -3,7 +3,9 @@ import firebase from './../../firebase';
 
 import {Tab,Tabs} from 'react-bootstrap';
 import './Section2.css';
-import $ from 'jquery'
+import $ from 'jquery';
+
+
 
 var questionRef=firebase.database().ref('Questions');
 var sectionRef=firebase.database().ref('Sections');
@@ -18,7 +20,6 @@ class Section2 extends Component {
       answers:props.answers,
       questions:[],
       sectionChoice:[],
-
       tabKey:1,
 
     }
@@ -119,8 +120,8 @@ class Section2 extends Component {
                             <br/>
                             {choiceArray.map((choice, c) => {
                                   return (
-                                    <span className="radio-choice" key={c}>
-                                    <input type={ques.button} name={ques.question_name} value={ques.question_name+"_"+c} onChange={(e) => this.handleQuestionChange(e,ques.question_name)} required/>
+                                    <span className="radio-choice" key={c+1}>
+                                    <input type={ques.button} name={ques.question_name} value={ques.question_name+"_"+c+1} onChange={(e) => this.handleQuestionChange(e,ques.question_name)} required/>
                                     {choice}  
                                     
                                     </span>

@@ -8,6 +8,7 @@ import Section2 from './components/Section2/Section2';
 import Header from './components/Header/Header';
 import Dashboard from './components/Admin/Dashboard/Dashboard';
 import AddQuestion from './components/Admin/Dashboard/AddQuestion';
+import ViewSurveyResult from './components/Admin/Dashboard/ViewSurveyResult';
 import firebase from './firebase';
 
 var uuid = require('uuid');
@@ -104,7 +105,7 @@ class App extends Component {
         <Header />
         <header className="App-header text-center">
           <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to BIED Surveys</h1>
+          <h1 className="App-title">Welcome To BIED Surveys</h1>
         </header>
 
       {/*Routing information */}
@@ -124,7 +125,11 @@ class App extends Component {
           )}/>
           <Route exact path='/add_questions' render={()=>(
             <AddQuestion survey_name="youth_surveys"/>
+          )}/> 
+          <Route exact path='/view_result' render={()=>(
+            <ViewSurveyResult survey_name="youth_surveys"/>
           )}/>
+          
         </Switch>
 
       </div>

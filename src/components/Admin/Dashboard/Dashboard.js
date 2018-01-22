@@ -27,7 +27,7 @@ class Dashboard extends Component {
 		    responseType:this.props.responseType
 		  },
 		  scope:this.props.scope,
-		  
+		  allowSignUp: false,
 		  autoclose: this.props.autoclose,
 		  
 		});
@@ -54,7 +54,8 @@ class Dashboard extends Component {
 		this.setState({
 		  accessToken:localStorage.getItem('accessToken'),
 		  idToken:localStorage.getItem('idToken'),
-		  profile:JSON.parse(localStorage.getItem('profile'))
+		  profile:JSON.parse(localStorage.getItem('profile')),
+
 		});
 	}
 	getLoginData(){
@@ -91,7 +92,7 @@ class Dashboard extends Component {
 							<Panel>
 								<h3>View Surveys Results</h3>
 								<ListGroup>
-									<ListGroupItem>youth_survey</ListGroupItem>
+									<ListGroupItem><Link to='/view_result'>youth_survey</Link></ListGroupItem>
 									<ListGroupItem>Item 2</ListGroupItem>
 									<ListGroupItem>...</ListGroupItem>
 								</ListGroup>
@@ -108,7 +109,7 @@ class Dashboard extends Component {
 
 
 		}else{
-			DashView=<h3 className="text-center">Please click here to Login </h3>
+			DashView=<h3 className="text-center" ><a onClick={this.showLock.bind(this)}>Please click here to Login </a></h3>
 		}
 		return(
 		  <div>		    

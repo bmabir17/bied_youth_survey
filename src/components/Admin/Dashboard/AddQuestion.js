@@ -68,6 +68,18 @@ class AddQuestion extends Component {
 		}else{
 			quesChoice.push(this.refs.ques_choice_1.value);
 			quesChoice.push(this.refs.ques_choice_2.value);
+			quesChoice.push(this.refs.ques_choice_3.value);
+			quesChoice.push(this.refs.ques_choice_4.value);
+			quesChoice.push(this.refs.ques_choice_5.value);
+			quesChoice.push(this.refs.ques_choice_6.value);
+			quesChoice.push(this.refs.ques_choice_7.value);
+			quesChoice.push(this.refs.ques_choice_8.value);
+			quesChoice.push(this.refs.ques_choice_9.value);
+			quesChoice.push(this.refs.ques_choice_10.value);
+			quesChoice.push(this.refs.ques_choice_11.value);
+			quesChoice.push(this.refs.ques_choice_12.value);
+			quesChoice.push(this.refs.ques_choice_13.value);
+			quesChoice.push(this.refs.ques_choice_14.value);
 			console.log("choice pushed");
 		}
 		
@@ -154,6 +166,10 @@ class AddQuestion extends Component {
 						<input type="text" placeholder="Choice 8 Text" ref="ques_choice_8"  />
 						<input type="text" placeholder="Choice 9 Text" ref="ques_choice_9"  />
 						<input type="text" placeholder="Choice 10 Text" ref="ques_choice_10" />
+						<input type="text" placeholder="Choice 11 Text" ref="ques_choice_11" />
+						<input type="text" placeholder="Choice 12 Text" ref="ques_choice_12" />
+						<input type="text" placeholder="Choice 13 Text" ref="ques_choice_13" />
+						<input type="text" placeholder="Choice 14 Text" ref="ques_choice_14" />
 						
 					</span>;
 		}
