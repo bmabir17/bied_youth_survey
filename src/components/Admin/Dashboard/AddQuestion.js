@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import Auth0Lock from 'auth0-lock'; //login Module
-import {Panel,Grid,Col,Row,ListGroup,ListGroupItem} from 'react-bootstrap';
+import {Panel,Grid,Col,Row,ListGroup,ListGroupItem,Button} from 'react-bootstrap';
 
 import firebase from './../../../firebase';
 
@@ -20,8 +20,10 @@ class AddQuestion extends Component {
 		  text:'',
 		  button:'',
 		  section:'',
-		  submitted:'',
+		  submitted:false,
 		  choice:[],
+
+		  deleted:false,
 
 		  
 
@@ -38,6 +40,11 @@ class AddQuestion extends Component {
 	        this.setState({questions:response},()=>{		       
 	        });
 	    }).catch((error)=>{console.log(error)});
+	}
+	componentWillMount(){
+		this.setState({submitted:false,deleted:false},function () {
+	      
+	    });
 	}
 	componentDidMount(){
 		//console.log("components mounted");
@@ -93,8 +100,14 @@ class AddQuestion extends Component {
 			section:sectionChoice,
 			choice:quesChoice
 		},function () {
-		  console.log(this.state);
-		  this.questionSubmit();
+			console.log(this.state);
+			this.refs.ques_no.value="";
+			this.refs.button_type.value="";
+			this.refs.question.value="";
+			this.refs.sectionChoice.value="";
+			this.questionSubmit();
+			
+			
 		});
 		
 		
@@ -135,6 +148,18 @@ class AddQuestion extends Component {
 		  
 		});
 
+	}
+	deleteQuestion(i,event){
+		console.log(i);
+		console.log(event);
+		var r =window.confirm("delete Question?");
+		if(r==true){
+			firebase.database().ref('Questions/youth_surveys/'+i).remove();
+	    	this.setState({deleted:false},function () {
+	      
+	    	});
+		}
+		
 	}
 	
 		
@@ -212,9 +237,23 @@ class AddQuestion extends Component {
 									<h4>Section 1</h4>
 									{Object.keys(questionArray).map((i) => { //itterate to get key values of the array
 										var ques=questionArray[i];			//use a key value and get a pariticular element
+										//console.log(i);
 										if(ques.section==="section1"){
-					                		return (<span key={i+1}>
-						                    	<ListGroupItem>{ques.question_name} {ques.text}</ListGroupItem>							                    						                    
+					                		return (<span key={i}>
+						                    	<ListGroupItem>
+						                    		<Row>
+							                    		<Col xs={15} md={10}>
+								                    		{ques.question_name}
+								                    	 	{ques.text} 
+							                    	 	</Col>
+							                    	 	<Col xs={3} md={2}>
+								                    	 	<Button bsStyle="danger" onClick={(e)=>this.deleteQuestion(i,e)} style={{alignItems:'right'}}>
+								                    	 		delete
+								                    	 	</Button>
+							                    	 	</Col>
+						                    	 	</Row>
+						                    	</ListGroupItem>
+
 						                  	</span>
 						                  	)
 					                	}	
@@ -228,8 +267,20 @@ class AddQuestion extends Component {
 										var ques=questionArray[i];			//use a key value and get a pariticular element
 										if(ques.section==="section2"){
 					                		return (<span key={i+1}>
-						                    	<ListGroupItem>{ques.question_name} {ques.text}</ListGroupItem>							                    						                    
-						                  	</span>
+								                    	<ListGroupItem>
+								                    		<Row>
+									                    		<Col xs={15} md={10}>
+										                    		{ques.question_name}
+										                    	 	{ques.text} 
+									                    	 	</Col>
+									                    	 	<Col xs={3} md={2}>
+										                    	 	<Button bsStyle="danger" onClick={(e)=>this.deleteQuestion(i,e)} style={{alignItems:'right'}}>
+										                    	 		delete
+										                    	 	</Button>
+									                    	 	</Col>
+								                    	 	</Row>
+								                    	</ListGroupItem>							                    						                    
+								                  	</span>
 						                  	)
 					                	}	
 						              	}
@@ -243,7 +294,19 @@ class AddQuestion extends Component {
 										
 										if(ques.section==="section3"){
 					                		return (<span key={i+1}>
-						                    	<ListGroupItem>{ques.question_name} {ques.text}</ListGroupItem>							                    						                    
+						                    	<ListGroupItem>
+						                    		<Row>
+							                    		<Col xs={15} md={10}>
+								                    		{ques.question_name}
+								                    	 	{ques.text} 
+							                    	 	</Col>
+							                    	 	<Col xs={3} md={2}>
+								                    	 	<Button bsStyle="danger" onClick={(e)=>this.deleteQuestion(i,e)} style={{alignItems:'right'}}>
+								                    	 		delete
+								                    	 	</Button>
+							                    	 	</Col>
+						                    	 	</Row>
+						                    	</ListGroupItem>							                    						                    
 						                  	</span>
 						                  	)
 					                	}	

@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import firebase from './../../firebase';
+import {Tab,Tabs,Table,Panel,Grid,Col,Row,ListGroup,ListGroupItem,Button} from 'react-bootstrap';
 
-import {Tab,Tabs} from 'react-bootstrap';
 import './Section2.css';
 import $ from 'jquery';
 
@@ -93,6 +93,13 @@ class Section2 extends Component {
     }
     
   }
+  handlePreviousButton(key){
+    console.log(`Previous Tab  Selected`);
+    this.setState({tabKey:key},function(){
+        console.log(this.state);
+      });
+  }
+
   render(){
 
 
@@ -101,124 +108,194 @@ class Section2 extends Component {
     //console.log(choiceArray);
     return(
 
-      <span>
+      <span >
         <h3 className="text-center">Education Watch 2017</h3>
         <h3 className="text-center">মূল্যবোধ জরিপ (তরুণদের জন্য)</h3>
-        
-        <Tabs  id="tab-example" activeKey={this.state.tabKey} >
-
+        <Panel >
+        <Grid>
+        <Tabs className=""  id="tab-example" activeKey={this.state.tabKey} >
+          
           <Tab eventKey={1} title="Section 1">
             <form className="questionContainer" id="questionContainer1" onSubmit={(e)=>this.handleTabSelect(2,e)} >
+              <Row>
               {Object.keys(questionArray).map((i) => { //itterate to get key values of the array
+                    
                     var ques=questionArray[i];         //use a key value and get a pariticular element
                     var choiceArray=ques.choice;
                     if(ques.section==="section1"){
                       if(ques.button==="radio"){                                       
                         return (
-                          <span key={i}>
-                            <label >{ques.question_name}) {ques.text}</label>
-                            <br/>
-                            {choiceArray.map((choice, c) => {
-                                  return (
-                                    <span className="radio-choice" key={c+1}>
-                                    <input type={ques.button} name={ques.question_name} value={ques.question_name+"_"+c+1} onChange={(e) => this.handleQuestionChange(e,ques.question_name)} required/>
-                                    {choice}  
-                                    
-                                    </span>
+                          <Col xs={9} md={6} >
+                            <Row>
+                              <div key={i}>
+                                <Col xs={9} md={6}>
+                                  <label >{ques.question_name}) {ques.text}</label>
+                                  <br/>
+                                </Col>
+                              
+                                <Col xs={9} md={6}>
+                                {choiceArray.map((choice, c) => {
+                                      return (
+                                        
+                                        <span className="radio-choice" key={c+1} style={{alignItems:'right'}}>
+                                        <input style={{marginRight:5}} className=""  type={ques.button} name={ques.question_name} value={ques.question_name+"_"+c+1} onChange={(e) => this.handleQuestionChange(e,ques.question_name)}   />
+                                        
+                                        {choice}  
+                                        <br/>
+                                        </span>
+                                        
+                                      )
+                                    },ques
                                   )
-                                },ques
-                              )
-                            }
-                            <br/>
-                          </span>
+                                }
+                                </Col>
+                                <hr/>
+                              </div>
+                            </Row>
+                          </Col>
                         )
                       }else if(ques.button==="text_box"){
                         return (
-                          <span key={i}>
-                            <label >{ques.question_name}) {ques.text}</label>
-                            <br/>
-                            <input type="text" name={ques.question_name} onChange={(e) => this.handleQuestionChange(e,ques.question_name)} required/>
-                            <br/>
-                          </span>
+                          <Col xs={9} md={6} style={{paddingRight:10}}>
+                            <Row>
+                              <span key={i}>
+                                <Col xs={6} md={4}>
+                                <label >{ques.question_name}) {ques.text}</label>
+                                </Col>
+                                <Col xs={12} md={8}>
+                                  <input type="text" name={ques.question_name} onChange={(e) => this.handleQuestionChange(e,ques.question_name)} />
+                                </Col>
+                                <br/>
+                              </span>
+                            </Row>
+                          </Col>
                         )
                       }
                     }
                   }
                 )
+
               }
+              </Row>
+
               <input type="submit" value="Next Section" />
             </form>
           </Tab>
+          
           <Tab eventKey={2} title="Section 2">
             <form className="questionContainer" id="questionContainer2" onSubmit={(e)=>this.handleTabSelect(3,e)}>
+              <Row>
               {Object.keys(questionArray).map((i) => { //itterate to get key values of the array
+                    
                     var ques=questionArray[i];         //use a key value and get a pariticular element
                     var choiceArray=ques.choice;
                     if(ques.section==="section2"){
                       if(ques.button==="radio"){                                       
                         return (
-                          <span key={i}>
-                            <label >{ques.question_name}) {ques.text}</label>
-                            <br/>
-                            {choiceArray.map((choice, c) => {
-                                  return (
-                                    <span className="radio-choice" key={c}>
-                                    <input type={ques.button} name={ques.question_name} value={ques.question_name+"_"+c} onChange={(e) => this.handleQuestionChange(e,ques.question_name)} required/>
-                                    {choice}  
-                                    
-                                    </span>
+                          <Col xs={9} md={6} >
+                            <Row>
+                              <span key={i}>
+                                <Col xs={9} md={6}>
+                                  <label >{ques.question_name}) {ques.text}</label>
+                                  <br/>
+                                </Col>
+                              
+                                <Col xs={9} md={6}>
+                                {choiceArray.map((choice, c) => {
+                                      return (
+                                        
+                                        <span className="radio-choice" key={c+1} style={{alignItems:'right'}}>
+                                        <input style={{marginRight:5}} className=""  type={ques.button} name={ques.question_name} value={ques.question_name+"_"+c+1} onChange={(e) => this.handleQuestionChange(e,ques.question_name)}   />
+                                        
+                                        {choice}  
+                                        <br/>
+                                        </span>
+                                        
+                                      )
+                                    },ques
                                   )
-                                },ques
-                              )
-                            }
-                            <br/>
-                          </span>
+                                }
+                                </Col>
+                                <br/>
+                              </span>
+                            </Row>
+                          </Col>
                         )
                       }else if(ques.button==="text_box"){
                         return (
-                          <span key={i}>
-                            <label >{ques.question_name}) {ques.text}</label>
-                            <br/>
-                            <input type="text" name={ques.question_name} onChange={(e) => this.handleQuestionChange(e,ques.question_name)} required/>
-                            <br/>
-                          </span>
+                          <Col xs={9} md={6} style={{paddingRight:10}}>
+                            <Row>
+                              <span key={i}>
+                                <Col xs={6} md={4}>
+                                <label >{ques.question_name}) {ques.text}</label>
+                                </Col>
+                                <Col xs={12} md={8}>
+                                  <input type="text" name={ques.question_name} onChange={(e) => this.handleQuestionChange(e,ques.question_name)} />
+                                </Col>
+                                <br/>
+                              </span>
+                            </Row>
+                          </Col>
                         )
                       }
                     }
                   }
                 )
+
               }
+              </Row>
+              <Button onClick={()=>this.handlePreviousButton(1)}>Previous Section</Button>
               <input type="submit" value="Next Section" />
             </form>
           </Tab>
           <Tab eventKey={3} title="Section 3">
             <form className="questionContainer" id="questionContainer3" onSubmit={this.handleQuestionSubmit.bind(this)}>
+              
               {Object.keys(questionArray).map((i) => { //itterate to get key values of the array
+                    
                     var ques=questionArray[i];         //use a key value and get a pariticular element
-
-                    if(ques.section==="section3" && ques.button==="radio"){                                        
-                      return (
-                        <span key={i}>
-                          <label >{ques.question_name}) {ques.text}</label>
-                          <br/>
-                          {choiceArray3.map((choice, c) => {
-                                return (
-                                  <span className="radio-choice" key={c}>
-                                  <input type={ques.button} name={ques.question_name} value={ques.question_name+"_"+c} onChange={(e) => this.handleQuestionChange(e,ques.question_name)} required/>
-                                  {choice}  
-                                  
-                                  </span>
-                                )
-                              },ques
-                            )
-                          }
-                          <br/>
-                        </span>
-                      )
+                    
+                    if(ques.section==="section3"){
+                      if(ques.button==="radio"){                                       
+                        return (
+                          
+                            <Row>
+                              <span key={i}>
+                                <Col xs={11} md={8}>
+                                  <label >{ques.question_name}) {ques.text}</label>
+                                  <br/>
+                                </Col>
+                              
+                                <Col xs={7} md={4}>
+                                {choiceArray3.map((choice, c) => {
+                                      return (
+                                        
+                                        <span className="radio-choice" key={c+1} style={{alignItems:'right'}}>
+                                        <input style={{marginRight:5}} className=""  type={ques.button} name={ques.question_name} value={ques.question_name+"_"+c+1} onChange={(e) => this.handleQuestionChange(e,ques.question_name)}   />
+                                        
+                                        {choice}  
+                                        <br/>
+                                        </span>
+                                        
+                                      )
+                                    },ques
+                                  )
+                                }
+                                </Col>
+                                <br/>
+                              </span>
+                            </Row>
+                          
+                        )
+                      }
                     }
                   }
                 )
+
               }
+              
+              
+              <Button onClick={()=>this.handlePreviousButton(2)}>Previous Section</Button>
               <input type="submit" value="Submit"/>
             </form>
           </Tab>
@@ -226,6 +303,8 @@ class Section2 extends Component {
             Tab 4 content
           </Tab>
         </Tabs>
+        </Grid>
+        </Panel>
         
       
       </span>

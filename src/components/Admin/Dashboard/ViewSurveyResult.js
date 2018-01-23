@@ -5,14 +5,18 @@ import {Table,Panel,Grid,Col,Row,ListGroup,ListGroupItem} from 'react-bootstrap'
 var responseRef=firebase.database().ref('Response');
 var survey_name;
 var json2csv = require('json2csv');
+var firebaseToCsv = require('firebase-to-csv')
 var fileDownload = require('react-file-download');
 var res_ans=[];
+
+
 class ViewSurveyResult extends Component {
 	constructor(props) {
 	    super(props);
 	    survey_name=props.survey_name;
 	    this.state={
 	      result: [],
+	      res_ans_json:{}
 	      
 
 	    }
@@ -44,10 +48,24 @@ class ViewSurveyResult extends Component {
 	}
 	exportResult(){
 		var fields=['q0','q1','q3','q4','q5'];
-		console.log(this.state.result);
-		console.log(res_ans);
-		var csv= json2csv({data:res_ans,fields:fields});
-		fileDownload(csv, 'data.csv');
+		var resultArray=this.state.result;
+		for(var key in resultArray){
+			if (resultArray.hasOwnProperty(key)) {
+		        //console.log(key + " -> " + resultArray[key]);
+		        for(var key1 in resultArray[key]){
+					if (resultArray[key].hasOwnProperty(key1)) {
+				        
+				        if(key1==="answers"){
+				        	console.log(JSON.stringify(resultArray[key][key1]));
+				        }
+				    }
+				}
+		    }
+		}
+							          	
+		//var csv= json2csv({data:res_ans,fields:fields});
+
+		//fileDownload(csv, 'data.csv');
 	}
 	render() {
 		var resultArray=this.state.result;
