@@ -213,7 +213,8 @@ class AddQuestion extends Component {
 						            <br/>
 						            
 						            <select className="selector" ref="button_type" value={this.state.button} onChange={this.handleButtonChange.bind(this)} required>
-						              <option value="radio">Single Choice</option>
+						              <option value="radio">Single Choice (Radio selector)</option>
+						              <option value="selector">Single Choice (Dropdown selector)</option>
 						              <option defaultValue value="text_box">Text box</option>
 						            </select>
 						            <br/>

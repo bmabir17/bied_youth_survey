@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import firebase from './../../firebase';
-import {Tab,Tabs,Table,Panel,Grid,Col,Row,ListGroup,ListGroupItem,Button} from 'react-bootstrap';
+import {Tab,Tabs,Table,Panel,Grid,Col,Row,ListGroup,ListGroupItem,Button,FormGroup,ControlLabel,FormControl} from 'react-bootstrap';
 
 import './Section2.css';
 import $ from 'jquery';
@@ -10,6 +10,8 @@ import $ from 'jquery';
 var questionRef=firebase.database().ref('Questions');
 var sectionRef=firebase.database().ref('Sections');
 var survey_name;
+
+
 
 class Section2 extends Component {
   constructor(props) {
@@ -21,10 +23,12 @@ class Section2 extends Component {
       questions:[],
       sectionChoice:[],
       tabKey:1,
+      
 
     }
     this.handleQuestionChange=this.handleQuestionChange.bind(this)
   }
+
   getSectionChoice(){
     sectionRef.once("value").then(function(snapshot){
       var childVal=snapshot.val();
@@ -61,6 +65,7 @@ class Section2 extends Component {
     this.getQuestionData();
     this.getSectionChoice();
     //console.log(this.state);
+    
   }
 
   handleQuestionSubmit(event){
@@ -105,6 +110,7 @@ class Section2 extends Component {
 
     var questionArray=this.state.questions;
     var choiceArray3=this.state.sectionChoice;
+    
     //console.log(choiceArray);
     return(
 
@@ -134,16 +140,15 @@ class Section2 extends Component {
                                 </Col>
                               
                                 <Col xs={9} md={6}>
-                                {choiceArray.map((choice, c) => {
-                                      return (
-                                        
+                                {Object.keys(choiceArray).map((c) => {
+                                      var choice=choiceArray[c];
+                                      return (                                        
                                         <span className="radio-choice" key={c+1} style={{alignItems:'right'}}>
                                         <input style={{marginRight:5}} className=""  type={ques.button} name={ques.question_name} value={ques.question_name+"_"+c+1} onChange={(e) => this.handleQuestionChange(e,ques.question_name)}   />
                                         
                                         {choice}  
                                         <br/>
-                                        </span>
-                                        
+                                        </span>                                        
                                       )
                                     },ques
                                   )
@@ -167,6 +172,36 @@ class Section2 extends Component {
                                 </Col>
                                 <br/>
                               </span>
+                            </Row>
+                          </Col>
+                        )
+                      }
+                      else if(ques.button==="selector"){
+                        return (
+                          <Col xs={9} md={6} style={{paddingRight:10}}>
+                            <Row>
+                              
+                                <FormGroup key={i}>
+                                  <Col xs={6} md={4}>
+                                    <ControlLabel>{ques.question_name}) {ques.text}</ControlLabel>
+                                  </Col>
+                                  <Col xs={12} md={8}>
+                                    <FormControl componentClass="select" placeholder="select Division">
+                                      
+                                      {Object.keys(choiceArray).map((c) => {
+                                          var choice=choiceArray[c];
+                                          return (                                            
+                                              
+                                              <option key={c} value={ques.question_name+"_"+c+1} onChange={(e) => this.handleQuestionChange(e,ques.question_name)}>{choice.name}</option>                                                
+                                                                                          
+                                          )
+                                        },ques
+                                      )
+                                      }
+                                    </FormControl>
+                                  </Col>
+                                </FormGroup>                                
+                              
                             </Row>
                           </Col>
                         )
@@ -201,7 +236,8 @@ class Section2 extends Component {
                                 </Col>
                               
                                 <Col xs={9} md={6}>
-                                {choiceArray.map((choice, c) => {
+                                {Object.keys(choiceArray).map((c) => {
+                                      var choice=choiceArray[c];
                                       return (
                                         
                                         <span className="radio-choice" key={c+1} style={{alignItems:'right'}}>
@@ -267,7 +303,8 @@ class Section2 extends Component {
                                 </Col>
                               
                                 <Col xs={7} md={4}>
-                                {choiceArray3.map((choice, c) => {
+                                {Object.keys(choiceArray3).map((c) => {
+                                      var choice=choiceArray3[c];
                                       return (
                                         
                                         <span className="radio-choice" key={c+1} style={{alignItems:'right'}}>
