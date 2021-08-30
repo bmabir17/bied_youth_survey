@@ -18,7 +18,10 @@ git commmit -m "v2"
 git push heroku master
 heroku open
 
-
+# Local Dev setup
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+nvm install 8.9.4
+npm install #Run this on root dir
 ####### TO DO
 0. Crate the structure of json question and response storing
 1. Show Survey question from json database (follow section 3 in udemy)
